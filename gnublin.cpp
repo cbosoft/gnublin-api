@@ -68,7 +68,7 @@ int gnublin_gpio::unexport(int pin){
 	std::string pin_str = numberToString(pin);
 	std::string dir = "/sys/class/gpio/unexport";
 	std::ofstream file (dir.c_str());
-	if (file < 0) {
+	if ((bool)file < 0) {
 		error_flag = true;
 		return -1;
 	}
@@ -141,7 +141,7 @@ int gnublin_gpio::pinMode(int pin, std::string direction){
 	std::string pin_str = numberToString(pin);
 	std::string dir = "/sys/class/gpio/export";
 	std::ofstream file (dir.c_str());
-	if (file < 0) {
+	if ((bool)file < 0) {
 		error_flag = true;
 		return -1;
 	}
@@ -151,7 +151,7 @@ int gnublin_gpio::pinMode(int pin, std::string direction){
 	dir = "/sys/class/gpio/gpio" + pin_str + "/direction";
 
 	file.open(dir.c_str());
-	if (file < 0) {
+	if ((bool)file < 0) {
 		error_flag = true;
 		return -1;
 	}
@@ -194,7 +194,7 @@ int gnublin_gpio::digitalWrite(int pin, int value){
 	std::string dir = "/sys/class/gpio/gpio" + pin_str + "/value";
 
 	std::ofstream file (dir.c_str());
-	if (file < 0) {
+	if ((bool)file < 0) {
 		error_flag = true;
 		return -1;
 	}
@@ -224,7 +224,7 @@ int gnublin_gpio::digitalRead(int pin) {
 	std::string pin_str = numberToString(pin);
 	std::string device = "/sys/class/gpio/gpio" + pin_str + "/value";
 	std::ifstream file(device.c_str());
-	if (file < 0){
+	if ((bool)file < 0){
 		error_flag = true;
 		return -1;
 	}
@@ -1239,7 +1239,7 @@ int gnublin_adc::getValue(int pin){
 	std::string pin_str = numberToString(pin);
 	std::string device = "/dev/lpc313x_adc";
 	std::ofstream file(device.c_str());
-	if (file < 0) {
+	if ((bool)file < 0) {
 		error_flag = true;
 		return -1;
 	}
@@ -7335,7 +7335,7 @@ gnublin_csv::gnublin_csv(string new_filename) {
 	filename = new_filename;
 
 	ofstream file(filename.c_str());
-  if (file < 0) {
+  if ((bool)file < 0) {
   }
   file.close();
 
@@ -7366,7 +7366,7 @@ int gnublin_csv::open(string new_filename) {
 	filename = new_filename;
 	
   std::ofstream file (filename.c_str());
-  if (file < 0) {
+  if ((bool)file < 0) {
     return -1;
   }
 	return 0;
